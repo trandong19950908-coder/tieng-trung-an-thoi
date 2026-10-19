@@ -12,6 +12,10 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: ./tieng-trung-an-thoi-main
+
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
