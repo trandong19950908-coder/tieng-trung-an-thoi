@@ -1,0 +1,97 @@
+{
+  "settings": {
+    "phone": "",
+    "zalo": "",
+    "facebook": "",
+    "address": "An Thới, Phú Quốc",
+    "email": "",
+    "headline": "Tự tin nói tiếng Trung, mở rộng cơ hội ngay tại Phú Quốc",
+    "subtitle": "Học giao tiếp thực tế, phát âm chuẩn từ nền tảng và ứng dụng trong công việc, du lịch, cuộc sống.",
+    "announcement": "ĐĂNG KÝ TƯ VẤN LỘ TRÌNH MIỄN PHÍ"
+  },
+  "courses": [
+    {
+      "id": "giaotiep",
+      "tag": "DÀNH CHO NGƯỜI MỚI",
+      "icon": "🗣️",
+      "title": "Tiếng Trung giao tiếp",
+      "desc": "Học từ phát âm, từ vựng thông dụng đến phản xạ giao tiếp hằng ngày.",
+      "duration": "Lộ trình theo trình độ",
+      "badge": "Phổ biến",
+      "features": [
+        "Luyện phát âm và thanh điệu",
+        "Hội thoại theo tình huống",
+        "Thực hành nói qua từng buổi"
+      ]
+    },
+    {
+      "id": "hsk",
+      "tag": "HỌC CÓ MỤC TIÊU",
+      "icon": "📚",
+      "title": "Luyện thi HSK",
+      "desc": "Củng cố từ vựng, ngữ pháp và các kỹ năng theo cấp độ HSK.",
+      "duration": "Theo mục tiêu học viên",
+      "badge": "",
+      "features": [
+        "Hệ thống kiến thức theo cấp độ",
+        "Rèn nghe, đọc và viết",
+        "Bài luyện tập và đánh giá"
+      ]
+    },
+    {
+      "id": "dulich",
+      "tag": "ỨNG DỤNG CÔNG VIỆC",
+      "icon": "🏝️",
+      "title": "Tiếng Trung du lịch – dịch vụ",
+      "desc": "Giao tiếp với khách hàng trong nhà hàng, khách sạn, bán hàng và du lịch.",
+      "duration": "Lộ trình thực hành",
+      "badge": "Thực tế",
+      "features": [
+        "Mẫu câu phục vụ khách",
+        "Xử lý tình huống công việc",
+        "Luyện hội thoại chuyên ngành"
+      ]
+    },
+    {
+      "id": "thieunhi",
+      "tag": "HỌC QUA TƯƠNG TÁC",
+      "icon": "🌈",
+      "title": "Tiếng Trung thiếu nhi",
+      "desc": "Làm quen ngôn ngữ qua hình ảnh, trò chơi, bài hát và tương tác.",
+      "duration": "Lộ trình phù hợp độ tuổi",
+      "badge": "",
+      "features": [
+        "Từ vựng trực quan",
+        "Hoạt động nghe – nói",
+        "Xây dựng hứng thú học tập"
+      ]
+    }
+  ],
+  "posts": [
+    {
+      "id": "p1",
+      "category": "GÓC HỌC TẬP",
+      "date": "BÀI VIẾT MẪU",
+      "title": "5 cách luyện thanh điệu tiếng Trung mỗi ngày",
+      "excerpt": "Bắt đầu bằng những bài tập ngắn và thói quen nghe – nhắc lại.",
+      "emoji": "🎧"
+    },
+    {
+      "id": "p2",
+      "category": "KINH NGHIỆM",
+      "date": "BÀI VIẾT MẪU",
+      "title": "Nên học giao tiếp trước hay luyện thi HSK?",
+      "excerpt": "Lựa chọn lộ trình phù hợp với mục tiêu học tập và công việc.",
+      "emoji": "📖"
+    },
+    {
+      "id": "p3",
+      "category": "TIẾNG TRUNG ỨNG DỤNG",
+      "date": "BÀI VIẾT MẪU",
+      "title": "10 câu tiếng Trung hữu ích trong nhà hàng",
+      "excerpt": "Các mẫu câu cơ bản dành cho nhân sự ngành dịch vụ du lịch.",
+      "emoji": "🍜"
+    }
+  ],
+  "leads": []
+}

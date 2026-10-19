@@ -1,0 +1,757 @@
+{
+  "version": "1.5",
+  "notice": "70 từ/cụm từ minh họa do dự án biên soạn; KHÔNG phải danh mục từ vựng HSK 3.0 đầy đủ hoặc nội dung trích nguyên sách. Cần giáo viên đối chiếu từng mục với đề cương chính thức trước khi công bố là từ chuẩn HSK.",
+  "categories": [
+    {
+      "id": "hsk1",
+      "title": "HSK 1 · Nền tảng",
+      "description": "Bắt đầu với người, hành động và câu chào thông dụng",
+      "count": 10,
+      "track": "HSK 3.0 tham khảo"
+    },
+    {
+      "id": "hsk2",
+      "title": "HSK 2 · Mở rộng",
+      "description": "Đọc hiểu câu đơn giản về sinh hoạt và di chuyển",
+      "count": 10,
+      "track": "HSK 3.0 tham khảo"
+    },
+    {
+      "id": "hsk3",
+      "title": "HSK 3 · Vận dụng",
+      "description": "Từ vựng và cấu trúc để diễn đạt ý kiến và trải nghiệm",
+      "count": 10,
+      "track": "HSK 3.0 tham khảo"
+    },
+    {
+      "id": "hotel",
+      "title": "Khách sạn · Lễ tân",
+      "description": "Nhận phòng, trả phòng, yêu cầu của khách",
+      "count": 10,
+      "track": "Tiếng Trung ứng dụng"
+    },
+    {
+      "id": "daily",
+      "title": "Giao tiếp hằng ngày",
+      "description": "Chào hỏi, ăn uống, mua sắm và hẹn gặp",
+      "count": 10,
+      "track": "Tiếng Trung ứng dụng"
+    },
+    {
+      "id": "restaurant",
+      "title": "Nhà hàng · Phục vụ",
+      "description": "Đón bàn, thực đơn, yêu cầu và thanh toán",
+      "count": 10,
+      "track": "Tiếng Trung ứng dụng"
+    },
+    {
+      "id": "taxi",
+      "title": "Taxi · Tài xế",
+      "description": "Đón khách, chỉ đường, tính cước",
+      "count": 10,
+      "track": "Tiếng Trung ứng dụng"
+    }
+  ],
+  "vocabulary": [
+    {
+      "id": "v15-hsk1-01",
+      "category": "hsk1",
+      "hanzi": "我",
+      "pinyin": "wǒ",
+      "meaning": "Tôi",
+      "example": "我是学生。",
+      "translation": "Tôi là học sinh.",
+      "unit": 1
+    },
+    {
+      "id": "v15-hsk1-02",
+      "category": "hsk1",
+      "hanzi": "你",
+      "pinyin": "nǐ",
+      "meaning": "Bạn",
+      "example": "你好吗？",
+      "translation": "Bạn có khỏe không?",
+      "unit": 1
+    },
+    {
+      "id": "v15-hsk1-03",
+      "category": "hsk1",
+      "hanzi": "好",
+      "pinyin": "hǎo",
+      "meaning": "Tốt, khỏe",
+      "example": "很好，谢谢。",
+      "translation": "Rất khỏe, cảm ơn.",
+      "unit": 1
+    },
+    {
+      "id": "v15-hsk1-04",
+      "category": "hsk1",
+      "hanzi": "是",
+      "pinyin": "shì",
+      "meaning": "Là",
+      "example": "我是越南人。",
+      "translation": "Tôi là người Việt Nam.",
+      "unit": 1
+    },
+    {
+      "id": "v15-hsk1-05",
+      "category": "hsk1",
+      "hanzi": "不",
+      "pinyin": "bù",
+      "meaning": "Không",
+      "example": "我不是老师。",
+      "translation": "Tôi không phải giáo viên.",
+      "unit": 1
+    },
+    {
+      "id": "v15-hsk1-06",
+      "category": "hsk1",
+      "hanzi": "喝",
+      "pinyin": "hē",
+      "meaning": "Uống",
+      "example": "我喝水。",
+      "translation": "Tôi uống nước.",
+      "unit": 1
+    },
+    {
+      "id": "v15-hsk1-07",
+      "category": "hsk1",
+      "hanzi": "水",
+      "pinyin": "shuǐ",
+      "meaning": "Nước",
+      "example": "请喝水。",
+      "translation": "Mời uống nước.",
+      "unit": 1
+    },
+    {
+      "id": "v15-hsk1-08",
+      "category": "hsk1",
+      "hanzi": "吃",
+      "pinyin": "chī",
+      "meaning": "Ăn",
+      "example": "我们吃饭。",
+      "translation": "Chúng tôi ăn cơm.",
+      "unit": 1
+    },
+    {
+      "id": "v15-hsk1-09",
+      "category": "hsk1",
+      "hanzi": "今天",
+      "pinyin": "jīntiān",
+      "meaning": "Hôm nay",
+      "example": "今天我很忙。",
+      "translation": "Hôm nay tôi rất bận.",
+      "unit": 1
+    },
+    {
+      "id": "v15-hsk1-10",
+      "category": "hsk1",
+      "hanzi": "谢谢",
+      "pinyin": "xièxie",
+      "meaning": "Cảm ơn",
+      "example": "谢谢你的帮助。",
+      "translation": "Cảm ơn sự giúp đỡ của bạn.",
+      "unit": 1
+    },
+    {
+      "id": "v15-hsk2-01",
+      "category": "hsk2",
+      "hanzi": "因为",
+      "pinyin": "yīnwèi",
+      "meaning": "Bởi vì",
+      "example": "因为下雨，我不出去。",
+      "translation": "Vì trời mưa, tôi không ra ngoài.",
+      "unit": 2
+    },
+    {
+      "id": "v15-hsk2-02",
+      "category": "hsk2",
+      "hanzi": "所以",
+      "pinyin": "suǒyǐ",
+      "meaning": "Cho nên",
+      "example": "我累了，所以想休息。",
+      "translation": "Tôi mệt nên muốn nghỉ.",
+      "unit": 2
+    },
+    {
+      "id": "v15-hsk2-03",
+      "category": "hsk2",
+      "hanzi": "已经",
+      "pinyin": "yǐjīng",
+      "meaning": "Đã",
+      "example": "我已经到了。",
+      "translation": "Tôi đã đến rồi.",
+      "unit": 2
+    },
+    {
+      "id": "v15-hsk2-04",
+      "category": "hsk2",
+      "hanzi": "觉得",
+      "pinyin": "juéde",
+      "meaning": "Cảm thấy, cho rằng",
+      "example": "我觉得这个很好。",
+      "translation": "Tôi thấy cái này rất tốt.",
+      "unit": 2
+    },
+    {
+      "id": "v15-hsk2-05",
+      "category": "hsk2",
+      "hanzi": "希望",
+      "pinyin": "xīwàng",
+      "meaning": "Hy vọng",
+      "example": "希望明天见。",
+      "translation": "Hy vọng mai gặp.",
+      "unit": 2
+    },
+    {
+      "id": "v15-hsk2-06",
+      "category": "hsk2",
+      "hanzi": "运动",
+      "pinyin": "yùndòng",
+      "meaning": "Vận động, thể thao",
+      "example": "我喜欢运动。",
+      "translation": "Tôi thích thể thao.",
+      "unit": 2
+    },
+    {
+      "id": "v15-hsk2-07",
+      "category": "hsk2",
+      "hanzi": "准备",
+      "pinyin": "zhǔnbèi",
+      "meaning": "Chuẩn bị",
+      "example": "我准备去上课。",
+      "translation": "Tôi chuẩn bị đi học.",
+      "unit": 2
+    },
+    {
+      "id": "v15-hsk2-08",
+      "category": "hsk2",
+      "hanzi": "介绍",
+      "pinyin": "jièshào",
+      "meaning": "Giới thiệu",
+      "example": "请介绍一下自己。",
+      "translation": "Hãy giới thiệu về mình.",
+      "unit": 2
+    },
+    {
+      "id": "v15-hsk2-09",
+      "category": "hsk2",
+      "hanzi": "虽然",
+      "pinyin": "suīrán",
+      "meaning": "Mặc dù",
+      "example": "虽然很忙，我还是学习。",
+      "translation": "Dù bận, tôi vẫn học.",
+      "unit": 2
+    },
+    {
+      "id": "v15-hsk2-10",
+      "category": "hsk2",
+      "hanzi": "方便",
+      "pinyin": "fāngbiàn",
+      "meaning": "Thuận tiện",
+      "example": "现在方便吗？",
+      "translation": "Bây giờ có tiện không?",
+      "unit": 2
+    },
+    {
+      "id": "v15-hsk3-01",
+      "category": "hsk3",
+      "hanzi": "环境",
+      "pinyin": "huánjìng",
+      "meaning": "Môi trường",
+      "example": "这里的环境很好。",
+      "translation": "Môi trường ở đây rất tốt.",
+      "unit": 3
+    },
+    {
+      "id": "v15-hsk3-02",
+      "category": "hsk3",
+      "hanzi": "经验",
+      "pinyin": "jīngyàn",
+      "meaning": "Kinh nghiệm",
+      "example": "她有很多工作经验。",
+      "translation": "Cô ấy có nhiều kinh nghiệm làm việc.",
+      "unit": 3
+    },
+    {
+      "id": "v15-hsk3-03",
+      "category": "hsk3",
+      "hanzi": "解决",
+      "pinyin": "jiějué",
+      "meaning": "Giải quyết",
+      "example": "我们一起解决问题。",
+      "translation": "Chúng ta cùng giải quyết vấn đề.",
+      "unit": 3
+    },
+    {
+      "id": "v15-hsk3-04",
+      "category": "hsk3",
+      "hanzi": "提高",
+      "pinyin": "tígāo",
+      "meaning": "Nâng cao",
+      "example": "我要提高汉语水平。",
+      "translation": "Tôi muốn nâng cao trình độ tiếng Trung.",
+      "unit": 3
+    },
+    {
+      "id": "v15-hsk3-05",
+      "category": "hsk3",
+      "hanzi": "选择",
+      "pinyin": "xuǎnzé",
+      "meaning": "Lựa chọn",
+      "example": "你可以选择这个。",
+      "translation": "Bạn có thể chọn cái này.",
+      "unit": 3
+    },
+    {
+      "id": "v15-hsk3-06",
+      "category": "hsk3",
+      "hanzi": "重要",
+      "pinyin": "zhòngyào",
+      "meaning": "Quan trọng",
+      "example": "健康很重要。",
+      "translation": "Sức khỏe rất quan trọng.",
+      "unit": 3
+    },
+    {
+      "id": "v15-hsk3-07",
+      "category": "hsk3",
+      "hanzi": "习惯",
+      "pinyin": "xíguàn",
+      "meaning": "Thói quen",
+      "example": "这是我的学习习惯。",
+      "translation": "Đây là thói quen học của tôi.",
+      "unit": 3
+    },
+    {
+      "id": "v15-hsk3-08",
+      "category": "hsk3",
+      "hanzi": "交流",
+      "pinyin": "jiāoliú",
+      "meaning": "Giao lưu, trao đổi",
+      "example": "我们用中文交流。",
+      "translation": "Chúng tôi giao tiếp bằng tiếng Trung.",
+      "unit": 3
+    },
+    {
+      "id": "v15-hsk3-09",
+      "category": "hsk3",
+      "hanzi": "发现",
+      "pinyin": "fāxiàn",
+      "meaning": "Phát hiện",
+      "example": "我发现一个问题。",
+      "translation": "Tôi phát hiện một vấn đề.",
+      "unit": 3
+    },
+    {
+      "id": "v15-hsk3-10",
+      "category": "hsk3",
+      "hanzi": "适合",
+      "pinyin": "shìhé",
+      "meaning": "Phù hợp",
+      "example": "这门课适合初学者。",
+      "translation": "Khóa này phù hợp người mới.",
+      "unit": 3
+    },
+    {
+      "id": "v15-hotel-01",
+      "category": "hotel",
+      "hanzi": "预订",
+      "pinyin": "yùdìng",
+      "meaning": "Đặt trước",
+      "example": "您有预订吗？",
+      "translation": "Quý khách có đặt trước không?",
+      "unit": 4
+    },
+    {
+      "id": "v15-hotel-02",
+      "category": "hotel",
+      "hanzi": "入住",
+      "pinyin": "rùzhù",
+      "meaning": "Nhận phòng",
+      "example": "您几点入住？",
+      "translation": "Quý khách nhận phòng lúc mấy giờ?",
+      "unit": 4
+    },
+    {
+      "id": "v15-hotel-03",
+      "category": "hotel",
+      "hanzi": "退房",
+      "pinyin": "tuìfáng",
+      "meaning": "Trả phòng",
+      "example": "请在十二点前退房。",
+      "translation": "Vui lòng trả phòng trước 12 giờ.",
+      "unit": 4
+    },
+    {
+      "id": "v15-hotel-04",
+      "category": "hotel",
+      "hanzi": "护照",
+      "pinyin": "hùzhào",
+      "meaning": "Hộ chiếu",
+      "example": "请出示护照。",
+      "translation": "Vui lòng xuất trình hộ chiếu.",
+      "unit": 4
+    },
+    {
+      "id": "v15-hotel-05",
+      "category": "hotel",
+      "hanzi": "房卡",
+      "pinyin": "fángkǎ",
+      "meaning": "Thẻ phòng",
+      "example": "这是您的房卡。",
+      "translation": "Đây là thẻ phòng của quý khách.",
+      "unit": 4
+    },
+    {
+      "id": "v15-hotel-06",
+      "category": "hotel",
+      "hanzi": "早餐",
+      "pinyin": "zǎocān",
+      "meaning": "Bữa sáng",
+      "example": "早餐在一楼。",
+      "translation": "Bữa sáng ở tầng một.",
+      "unit": 4
+    },
+    {
+      "id": "v15-hotel-07",
+      "category": "hotel",
+      "hanzi": "电梯",
+      "pinyin": "diàntī",
+      "meaning": "Thang máy",
+      "example": "电梯在右边。",
+      "translation": "Thang máy ở bên phải.",
+      "unit": 4
+    },
+    {
+      "id": "v15-hotel-08",
+      "category": "hotel",
+      "hanzi": "行李",
+      "pinyin": "xíngli",
+      "meaning": "Hành lý",
+      "example": "需要帮您拿行李吗？",
+      "translation": "Quý khách cần hỗ trợ hành lý không?",
+      "unit": 4
+    },
+    {
+      "id": "v15-hotel-09",
+      "category": "hotel",
+      "hanzi": "空调",
+      "pinyin": "kōngtiáo",
+      "meaning": "Điều hòa",
+      "example": "空调可以调温度。",
+      "translation": "Điều hòa có thể chỉnh nhiệt độ.",
+      "unit": 4
+    },
+    {
+      "id": "v15-hotel-10",
+      "category": "hotel",
+      "hanzi": "前台",
+      "pinyin": "qiántái",
+      "meaning": "Quầy lễ tân",
+      "example": "请联系前台。",
+      "translation": "Vui lòng liên hệ lễ tân.",
+      "unit": 4
+    },
+    {
+      "id": "v15-daily-01",
+      "category": "daily",
+      "hanzi": "你好",
+      "pinyin": "nǐ hǎo",
+      "meaning": "Xin chào",
+      "example": "你好，很高兴认识你。",
+      "translation": "Chào bạn, rất vui được gặp.",
+      "unit": 4
+    },
+    {
+      "id": "v15-daily-02",
+      "category": "daily",
+      "hanzi": "再见",
+      "pinyin": "zàijiàn",
+      "meaning": "Tạm biệt",
+      "example": "明天见，再见！",
+      "translation": "Mai gặp nhé, tạm biệt!",
+      "unit": 4
+    },
+    {
+      "id": "v15-daily-03",
+      "category": "daily",
+      "hanzi": "多少钱",
+      "pinyin": "duōshao qián",
+      "meaning": "Bao nhiêu tiền",
+      "example": "这个多少钱？",
+      "translation": "Cái này bao nhiêu tiền?",
+      "unit": 4
+    },
+    {
+      "id": "v15-daily-04",
+      "category": "daily",
+      "hanzi": "可以",
+      "pinyin": "kěyǐ",
+      "meaning": "Có thể",
+      "example": "这里可以坐吗？",
+      "translation": "Có thể ngồi đây không?",
+      "unit": 4
+    },
+    {
+      "id": "v15-daily-05",
+      "category": "daily",
+      "hanzi": "不好意思",
+      "pinyin": "bù hǎoyìsi",
+      "meaning": "Xin lỗi, ngại quá",
+      "example": "不好意思，我迟到了。",
+      "translation": "Xin lỗi, tôi đến muộn.",
+      "unit": 4
+    },
+    {
+      "id": "v15-daily-06",
+      "category": "daily",
+      "hanzi": "没关系",
+      "pinyin": "méi guānxi",
+      "meaning": "Không sao",
+      "example": "没关系，别担心。",
+      "translation": "Không sao, đừng lo.",
+      "unit": 4
+    },
+    {
+      "id": "v15-daily-07",
+      "category": "daily",
+      "hanzi": "现在",
+      "pinyin": "xiànzài",
+      "meaning": "Bây giờ",
+      "example": "现在几点？",
+      "translation": "Bây giờ mấy giờ?",
+      "unit": 4
+    },
+    {
+      "id": "v15-daily-08",
+      "category": "daily",
+      "hanzi": "明天",
+      "pinyin": "míngtiān",
+      "meaning": "Ngày mai",
+      "example": "我们明天见。",
+      "translation": "Chúng ta gặp ngày mai.",
+      "unit": 4
+    },
+    {
+      "id": "v15-daily-09",
+      "category": "daily",
+      "hanzi": "一起",
+      "pinyin": "yìqǐ",
+      "meaning": "Cùng nhau",
+      "example": "我们一起吃饭吧。",
+      "translation": "Chúng ta cùng ăn nhé.",
+      "unit": 4
+    },
+    {
+      "id": "v15-daily-10",
+      "category": "daily",
+      "hanzi": "需要",
+      "pinyin": "xūyào",
+      "meaning": "Cần",
+      "example": "你需要帮忙吗？",
+      "translation": "Bạn có cần giúp không?",
+      "unit": 4
+    },
+    {
+      "id": "v15-restaurant-01",
+      "category": "restaurant",
+      "hanzi": "菜单",
+      "pinyin": "càidān",
+      "meaning": "Thực đơn",
+      "example": "这是菜单。",
+      "translation": "Đây là thực đơn.",
+      "unit": 4
+    },
+    {
+      "id": "v15-restaurant-02",
+      "category": "restaurant",
+      "hanzi": "点菜",
+      "pinyin": "diǎncài",
+      "meaning": "Gọi món",
+      "example": "您现在点菜吗？",
+      "translation": "Quý khách gọi món bây giờ không?",
+      "unit": 4
+    },
+    {
+      "id": "v15-restaurant-03",
+      "category": "restaurant",
+      "hanzi": "推荐",
+      "pinyin": "tuījiàn",
+      "meaning": "Gợi ý, đề xuất",
+      "example": "您推荐什么菜？",
+      "translation": "Bạn đề xuất món nào?",
+      "unit": 4
+    },
+    {
+      "id": "v15-restaurant-04",
+      "category": "restaurant",
+      "hanzi": "米饭",
+      "pinyin": "mǐfàn",
+      "meaning": "Cơm",
+      "example": "我要一碗米饭。",
+      "translation": "Tôi muốn một bát cơm.",
+      "unit": 4
+    },
+    {
+      "id": "v15-restaurant-05",
+      "category": "restaurant",
+      "hanzi": "饮料",
+      "pinyin": "yǐnliào",
+      "meaning": "Đồ uống",
+      "example": "您要什么饮料？",
+      "translation": "Quý khách dùng đồ uống gì?",
+      "unit": 4
+    },
+    {
+      "id": "v15-restaurant-06",
+      "category": "restaurant",
+      "hanzi": "买单",
+      "pinyin": "mǎidān",
+      "meaning": "Thanh toán",
+      "example": "服务员，买单。",
+      "translation": "Phục vụ ơi, tính tiền.",
+      "unit": 4
+    },
+    {
+      "id": "v15-restaurant-07",
+      "category": "restaurant",
+      "hanzi": "发票",
+      "pinyin": "fāpiào",
+      "meaning": "Hóa đơn",
+      "example": "需要发票吗？",
+      "translation": "Quý khách cần hóa đơn không?",
+      "unit": 4
+    },
+    {
+      "id": "v15-restaurant-08",
+      "category": "restaurant",
+      "hanzi": "过敏",
+      "pinyin": "guòmǐn",
+      "meaning": "Dị ứng",
+      "example": "我对花生过敏。",
+      "translation": "Tôi dị ứng đậu phộng.",
+      "unit": 4
+    },
+    {
+      "id": "v15-restaurant-09",
+      "category": "restaurant",
+      "hanzi": "辣",
+      "pinyin": "là",
+      "meaning": "Cay",
+      "example": "不要太辣。",
+      "translation": "Đừng cay quá.",
+      "unit": 4
+    },
+    {
+      "id": "v15-restaurant-10",
+      "category": "restaurant",
+      "hanzi": "打包",
+      "pinyin": "dǎbāo",
+      "meaning": "Gói mang về",
+      "example": "请帮我打包。",
+      "translation": "Vui lòng gói mang về.",
+      "unit": 4
+    },
+    {
+      "id": "v15-taxi-01",
+      "category": "taxi",
+      "hanzi": "机场",
+      "pinyin": "jīchǎng",
+      "meaning": "Sân bay",
+      "example": "请送我去机场。",
+      "translation": "Hãy đưa tôi đến sân bay.",
+      "unit": 4
+    },
+    {
+      "id": "v15-taxi-02",
+      "category": "taxi",
+      "hanzi": "上车",
+      "pinyin": "shàngchē",
+      "meaning": "Lên xe",
+      "example": "请上车。",
+      "translation": "Mời lên xe.",
+      "unit": 4
+    },
+    {
+      "id": "v15-taxi-03",
+      "category": "taxi",
+      "hanzi": "下车",
+      "pinyin": "xiàchē",
+      "meaning": "Xuống xe",
+      "example": "您在这里下车吗？",
+      "translation": "Quý khách xuống xe ở đây phải không?",
+      "unit": 4
+    },
+    {
+      "id": "v15-taxi-04",
+      "category": "taxi",
+      "hanzi": "左转",
+      "pinyin": "zuǒzhuǎn",
+      "meaning": "Rẽ trái",
+      "example": "前面左转。",
+      "translation": "Phía trước rẽ trái.",
+      "unit": 4
+    },
+    {
+      "id": "v15-taxi-05",
+      "category": "taxi",
+      "hanzi": "右转",
+      "pinyin": "yòuzhuǎn",
+      "meaning": "Rẽ phải",
+      "example": "请在路口右转。",
+      "translation": "Hãy rẽ phải ở ngã giao.",
+      "unit": 4
+    },
+    {
+      "id": "v15-taxi-06",
+      "category": "taxi",
+      "hanzi": "直走",
+      "pinyin": "zhízǒu",
+      "meaning": "Đi thẳng",
+      "example": "一直往前走。",
+      "translation": "Cứ đi thẳng về trước.",
+      "unit": 4
+    },
+    {
+      "id": "v15-taxi-07",
+      "category": "taxi",
+      "hanzi": "车费",
+      "pinyin": "chēfèi",
+      "meaning": "Tiền xe",
+      "example": "车费是多少？",
+      "translation": "Tiền xe là bao nhiêu?",
+      "unit": 4
+    },
+    {
+      "id": "v15-taxi-08",
+      "category": "taxi",
+      "hanzi": "堵车",
+      "pinyin": "dǔchē",
+      "meaning": "Kẹt xe",
+      "example": "这条路有点堵车。",
+      "translation": "Đường này hơi kẹt xe.",
+      "unit": 4
+    },
+    {
+      "id": "v15-taxi-09",
+      "category": "taxi",
+      "hanzi": "目的地",
+      "pinyin": "mùdìdì",
+      "meaning": "Điểm đến",
+      "example": "您的目的地是哪里？",
+      "translation": "Điểm đến của quý khách ở đâu?",
+      "unit": 4
+    },
+    {
+      "id": "v15-taxi-10",
+      "category": "taxi",
+      "hanzi": "安全带",
+      "pinyin": "ānquándài",
+      "meaning": "Dây an toàn",
+      "example": "请系好安全带。",
+      "translation": "Vui lòng thắt dây an toàn.",
+      "unit": 4
+    }
+  ]
+}

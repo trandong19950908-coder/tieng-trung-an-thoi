@@ -1,0 +1,12 @@
+# Never commit student records, leads, uploads, generated secrets
+/data/**
+!/data/.gitkeep
+.env
+.env.*
+!.env.example
+node_modules/
+coverage/
+*.log
+*.tmp
+.DS_Store
+.vscode/
