@@ -1,0 +1,34 @@
+
+name: Tieng Trung An Thoi CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Kiem tra ma nguon
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Lay ma nguon
+        uses: actions/checkout@v4
+
+      - name: Cai dat Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Kiem tra cu phap JavaScript
+        run: |
+          find server public -name "*.js" \
+            -type f -exec node --check {} \;
+
+      - name: Chay kiem thu neu da cau hinh
+        run: |
+          node -e "const p=require('./package.json'); if (!p.scripts?.test) process.exit(2)"
+          npm test
+
