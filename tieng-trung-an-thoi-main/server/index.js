@@ -115,16 +115,49 @@ const server=http.createServer(async (req,res)=>{
         return send(res,400,{error:'Thông tin bài kiểm tra không hợp lệ.'});
       const allowed=new Map(vocabulary().filter(w=>w.category===input.category).map(w=>[w.id,w]));
       const answers=[];
+      const seenIds = new Set();
       for(const a of input.answers){
         if(!a||typeof a.id!=='string'||!allowed.has(a.id)||typeof a.choice!=='string'||a.choice.length>300)return send(res,400,{error:'Đáp án không hợp lệ.'});
-        const correct=String(allowed.get(a.id)[input.mode])===a.choice;
+        if (seenIds.has(a.id)) {
+  return send(res, 400, {
+    error: 'Bài kiểm tra chứa từ vựng trùng lặp.'
+  });
+}
+
+seenIds.add(a.id);
+	const correct=String(allowed.get(a.id)[input.mode])===a.choice;
         answers.push({id:a.id,correct});
       }
       const record={id:crypto.randomUUID(),category:input.category,mode:input.mode,total:answers.length,correct:answers.filter(a=>a.correct).length,createdAt:new Date().toISOString()};
       const db=studentDB(),person=db.students.find(x=>x.id===student.id);
       person.quizHistory=Array.isArray(person.quizHistory)?person.quizHistory:[];
-      person.quizHistory.push(record);person.quizHistory=person.quizHistory.slice(-100);studentSave(db);
-      return send(res,201,{ok:true,record});
+      // Cập nhật lịch ôn tập theo đáp án đã được chấm trên máy chủ.
+      // Với mã từ xuất hiện nhiều lần, chỉ áp dụng lần xuất hiện đầu tiên.
+      const uniqueAnswers = new Map();
+      for (const answer of answers) {
+        if (!uniqueAnswers.has(answer.id)) uniqueAnswers.set(answer.id, answer);
+      }
+      person.progress = person.progress || {};
+      const now = Date.now();
+      const day = 86400000;
+      for (const answer of uniqueAnswers.values()) {
+        const prev = person.progress[answer.id] || {repetitions:0, interval:0};
+        const interval = answer.correct
+          ? (prev.repetitions === 0 ? 2 : Math.max(3, Math.ceil((prev.interval || 2) * 2)))
+          : 1;
+        person.progress[answer.id] = {
+          repetitions:(prev.repetitions || 0) + 1,
+          interval,
+          lastRating:answer.correct ? 'good' : 'again',
+          lastReviewed:new Date(now).toISOString(),
+          dueAt:new Date(now + interval * day).toISOString()
+        };
+      }
+      person.quizHistory.push(record);
+      person.quizHistory = person.quizHistory.slice(-100);
+      const updatedWords = uniqueAnswers.size;
+      studentSave(db);
+      return send(res,201,{ok:true,record,updatedWords});
     }
     if(pathname==='/api/student/review'&&req.method==='POST'){
       const student=currentStudent(req);if(!student)return send(res,401,{error:'Vui lòng đăng nhập để lưu tiến độ.'});
