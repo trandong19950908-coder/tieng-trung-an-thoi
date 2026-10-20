@@ -53,6 +53,8 @@ function studentSave(x){const tmp=studentPath+'.tmp';fs.writeFileSync(tmp,JSON.s
 function hashPassword(password,salt){return crypto.scryptSync(password,salt,64).toString('hex');}
 function studentCookie(id){const raw=Buffer.from(JSON.stringify({id,exp:Date.now()+7*86400_000})).toString('base64url');return raw+'.'+sign('student:'+raw);}
 function currentStudent(req){const cookie=(req.headers.cookie||'').split(';').map(x=>x.trim()).find(x=>x.startsWith('an_thoi_student='));if(!cookie)return null;const token=cookie.slice(16),i=token.lastIndexOf('.');if(i<0)return null;const raw=token.slice(0,i),sig=token.slice(i+1),correct=sign('student:'+raw);if(sig.length!==correct.length||!crypto.timingSafeEqual(Buffer.from(sig),Buffer.from(correct)))return null;try{const p=JSON.parse(Buffer.from(raw,'base64url').toString());if(p.exp<Date.now())return null;return studentDB().students.find(x=>x.id===p.id)||null;}catch{return null;}}
+const {buildLessons}=require('../src/modules/vocabulary/lesson-plan');
+const {schedule:nextReview,summary:reviewSummary}=require('../src/modules/vocabulary/srs');
 const vocabularyCatalog=JSON.parse(fs.readFileSync(path.join(dataDir,'vocabulary.json'),'utf8'));
 const vocabularyPath=path.join(dataDir,'vocabulary.json');
 function readVocabulary(){const d=JSON.parse(fs.readFileSync(vocabularyPath,'utf8'));return {version:d.version||'custom',notice:d.notice||'',categories:Array.isArray(d.categories)?d.categories:[],vocabulary:Array.isArray(d.vocabulary)?d.vocabulary:[]};}
@@ -80,6 +82,7 @@ const server=http.createServer(async (req,res)=>{
   const url=new URL(req.url,'http://localhost'); const pathname=url.pathname;
   try {
     if(pathname==='/api/learning/catalog'&&req.method==='GET')return send(res,200,{...readVocabulary(),methods});
+    if(pathname==='/api/learning/lessons'&&req.method==='GET'){const student=currentStudent(req);return send(res,200,{lessons:buildLessons(readVocabulary(),student?.progress||{}),authenticated:!!student});}
     if(pathname==='/api/student/register'&&req.method==='POST'){
       const input=await body(req);const name=text(input.name,80),email=text(input.email,120).toLowerCase(),password=String(input.password||'');
       if(name.length<2||!/^\S+@\S+\.\S+$/.test(email)||password.length<10||password.length>128)return send(res,400,{error:'Nhập họ tên, email hợp lệ và mật khẩu từ 10 ký tự.'});
@@ -95,12 +98,48 @@ const server=http.createServer(async (req,res)=>{
     }
     if(pathname==='/api/student/logout'&&req.method==='POST')return send(res,200,{ok:true},{'Set-Cookie':'an_thoi_student=; HttpOnly; SameSite=Lax; Path=/; Max-Age=0'});
     if(pathname==='/api/student/me'&&req.method==='GET'){const x=currentStudent(req);if(!x)return send(res,401,{error:'Bạn chưa đăng nhập.'});return send(res,200,{id:x.id,name:x.name,email:x.email,progress:x.progress||{}});}
+    if(pathname==='/api/student/review-summary'&&req.method==='GET'){
+      const student=currentStudent(req);if(!student)return send(res,401,{error:'Vui lòng đăng nhập.'});
+      const catalog=readVocabulary();return send(res,200,{summary:reviewSummary(catalog.vocabulary,student.progress||{}),categories:catalog.categories.map(c=>({id:c.id,title:c.title,...reviewSummary(catalog.vocabulary.filter(w=>w.category===c.id),student.progress||{})}))});
+    }
+    if(pathname==='/api/student/quiz-results'&&req.method==='GET'){
+      const student=currentStudent(req);if(!student)return send(res,401,{error:'Vui lòng đăng nhập.'});
+      const history=Array.isArray(student.quizHistory)?student.quizHistory:[];
+      const total=history.reduce((n,a)=>n+a.total,0),correct=history.reduce((n,a)=>n+a.correct,0);
+      return send(res,200,{history:history.slice(-30).reverse(),summary:{sessions:history.length,total,correct,percent:total?Math.round(100*correct/total):0}});
+    }
+    if(pathname==='/api/student/quiz-results'&&req.method==='POST'){
+      const student=currentStudent(req);if(!student)return send(res,401,{error:'Vui lòng đăng nhập để lưu bài kiểm tra.'});
+      const input=await body(req);
+      if(!['meaning','pinyin','hanzi'].includes(input.mode)||typeof input.category!=='string'||!readVocabulary().categories.some(c=>c.id===input.category)||!Array.isArray(input.answers)||input.answers.length<1||input.answers.length>100)
+        return send(res,400,{error:'Thông tin bài kiểm tra không hợp lệ.'});
+      const allowed=new Map(vocabulary().filter(w=>w.category===input.category).map(w=>[w.id,w]));
+      const answers=[];
+      const seen=new Set();
+      for(const a of input.answers){
+        if(!a||typeof a.id!=='string'||!allowed.has(a.id)||typeof a.choice!=='string'||a.choice.length>300||seen.has(a.id))return send(res,400,{error:'Đáp án không hợp lệ hoặc từ bị lặp lại.'});
+        seen.add(a.id);
+        const correct=String(allowed.get(a.id)[input.mode])===a.choice;
+        answers.push({id:a.id,correct});
+      }
+      const record={id:crypto.randomUUID(),category:input.category,mode:input.mode,total:answers.length,correct:answers.filter(a=>a.correct).length,createdAt:new Date().toISOString()};
+      const db=studentDB(),person=db.students.find(x=>x.id===student.id);
+      person.quizHistory=Array.isArray(person.quizHistory)?person.quizHistory:[];
+      person.quizHistory.push(record);person.quizHistory=person.quizHistory.slice(-100);
+      // Feed server-graded answers into the same review schedule as flashcards.
+      // Incorrect answers are marked 'again'; correct answers are scheduled 'good'.
+      person.progress=person.progress||{};
+      for(const answer of answers){
+        person.progress[answer.id]=nextReview(person.progress[answer.id]||{},answer.correct?'good':'again');
+      }
+      studentSave(db);
+      return send(res,201,{ok:true,record,updatedWords:answers.length});
+    }
     if(pathname==='/api/student/review'&&req.method==='POST'){
       const student=currentStudent(req);if(!student)return send(res,401,{error:'Vui lòng đăng nhập để lưu tiến độ.'});
       const input=await body(req);if(!vocabulary().some(x=>x.id===input.id)||!['again','hard','good'].includes(input.rating))return send(res,400,{error:'Dữ liệu ôn tập không hợp lệ.'});
-      const db=studentDB(),x=db.students.find(x=>x.id===student.id);const prev=x.progress[input.id]||{repetitions:0,interval:0};
-      const interval=input.rating==='again'?1:input.rating==='hard'?Math.max(1,Math.ceil((prev.interval||1)*1.5)):prev.repetitions===0?2:Math.max(3,Math.ceil((prev.interval||2)*2));
-      x.progress[input.id]={repetitions:prev.repetitions+1,interval,lastRating:input.rating,lastReviewed:new Date().toISOString(),dueAt:new Date(Date.now()+interval*86400000).toISOString()};studentSave(db);
+      const db=studentDB(),x=db.students.find(x=>x.id===student.id);const prev=x.progress[input.id]||{};
+      x.progress[input.id]=nextReview(prev,input.rating);studentSave(db);
       return send(res,200,{ok:true,progress:x.progress});
     }
     if(pathname==='/api/public'&&req.method==='GET'){const db=readDB();return send(res,200,{settings:db.settings,courses:db.courses,posts:db.posts,schedules:db.schedules});}

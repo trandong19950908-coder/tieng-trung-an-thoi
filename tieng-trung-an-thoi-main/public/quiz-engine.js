@@ -1,0 +1,6 @@
+(function(root,factory){const api=factory();if(typeof module!=="undefined"&&module.exports)module.exports=api;root.VocabQuiz=api;})(typeof window!=="undefined"?window:globalThis,function(){"use strict";
+const fields={meaning:"meaning",pinyin:"pinyin",hanzi:"hanzi"};
+function makeQuestion(words,word,mode,rng=Math.random){if(!fields[mode])throw Error("Kiểu bài kiểm tra không hợp lệ");if(!word||!words.some(w=>w.id===word.id))throw Error("Không tìm thấy từ");const key=fields[mode];const value=String(word[key]||'').trim();if(!value)throw Error("Từ chưa có đáp án");const seen=new Set([value]);const pool=[];for(const w of words){const answer=String(w[key]||'').trim();if(w.id!==word.id&&answer&&!seen.has(answer)){seen.add(answer);pool.push(answer)}}
+for(let i=pool.length-1;i>0;i--){const j=Math.floor(rng()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]]}const options=[value,...pool.slice(0,3)];for(let i=options.length-1;i>0;i--){const j=Math.floor(rng()*(i+1));[options[i],options[j]]=[options[j],options[i]]}return {id:word.id,mode,prompt:mode==='hanzi'?word.meaning:word.hanzi,answer:value,options};}
+function score(answers){const total=answers.length,correct=answers.filter(x=>x.correct===true).length;return {total,correct,percent:total?Math.round(100*correct/total):0};}
+return {makeQuestion,score};});

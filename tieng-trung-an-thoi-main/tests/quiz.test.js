@@ -1,0 +1,6 @@
+const test=require('node:test');const assert=require('node:assert/strict');const {makeQuestion,score}=require('../public/quiz-engine');
+const words=[{id:'a',hanzi:'你好',pinyin:'nǐ hǎo',meaning:'Xin chào'},{id:'b',hanzi:'谢谢',pinyin:'xièxie',meaning:'Cảm ơn'},{id:'c',hanzi:'再见',pinyin:'zàijiàn',meaning:'Tạm biệt'},{id:'d',hanzi:'酒店',pinyin:'jiǔdiàn',meaning:'Khách sạn'},{id:'e',hanzi:'出租车',pinyin:'chūzūchē',meaning:'Taxi'}];
+for(const mode of ['meaning','pinyin','hanzi'])test('Câu hỏi '+mode,()=>{const q=makeQuestion(words,words[0],mode,()=>0.4);assert.equal(q.options.length,4);assert.equal(q.options.filter(x=>x===q.answer).length,1);assert.equal(new Set(q.options).size,4)});
+test('Không sửa mảng từ gốc',()=>{const snapshot=JSON.stringify(words);makeQuestion(words,words[0],'meaning');assert.equal(JSON.stringify(words),snapshot)});
+test('Không có từ hoặc loại bài không hợp lệ',()=>{assert.throws(()=>makeQuestion(words,words[0],'invalid'));assert.throws(()=>makeQuestion(words,{id:'unknown'},'meaning'))});
+test('Tính điểm phiên học',()=>{assert.deepEqual(score([]),{total:0,correct:0,percent:0});assert.deepEqual(score([{correct:true},{correct:false},{correct:true}]),{total:3,correct:2,percent:67})});
