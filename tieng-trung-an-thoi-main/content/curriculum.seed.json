@@ -1,0 +1,251 @@
+{
+  "schemaVersion": 1,
+  "notice": "Giáo trình mẫu biên soạn riêng, không phải danh mục HSK 3.0 chính thức.",
+  "tracks": [
+    {
+      "id": "track-hsk1",
+      "categoryId": "hsk1",
+      "title": "HSK 1 · Nền tảng",
+      "description": "Lộ trình mẫu theo chủ đề, giáo viên có thể biên tập lại.",
+      "level": "Tham khảo",
+      "lessons": [
+        {
+          "id": "hsk1-bai-1",
+          "title": "Bài 1",
+          "objective": "Nhận diện, phát âm và sử dụng từ vựng trong câu.",
+          "wordIds": [
+            "v15-hsk1-01",
+            "v15-hsk1-02",
+            "v15-hsk1-03",
+            "v15-hsk1-04",
+            "v15-hsk1-05"
+          ],
+          "dialogs": []
+        },
+        {
+          "id": "hsk1-bai-2",
+          "title": "Bài 2",
+          "objective": "Nhận diện, phát âm và sử dụng từ vựng trong câu.",
+          "wordIds": [
+            "v15-hsk1-06",
+            "v15-hsk1-07",
+            "v15-hsk1-08",
+            "v15-hsk1-09",
+            "v15-hsk1-10"
+          ],
+          "dialogs": []
+        }
+      ]
+    },
+    {
+      "id": "track-hsk2",
+      "categoryId": "hsk2",
+      "title": "HSK 2 · Mở rộng",
+      "description": "Lộ trình mẫu theo chủ đề, giáo viên có thể biên tập lại.",
+      "level": "Tham khảo",
+      "lessons": [
+        {
+          "id": "hsk2-bai-1",
+          "title": "Bài 1",
+          "objective": "Nhận diện, phát âm và sử dụng từ vựng trong câu.",
+          "wordIds": [
+            "v15-hsk2-01",
+            "v15-hsk2-02",
+            "v15-hsk2-03",
+            "v15-hsk2-04",
+            "v15-hsk2-05"
+          ],
+          "dialogs": []
+        },
+        {
+          "id": "hsk2-bai-2",
+          "title": "Bài 2",
+          "objective": "Nhận diện, phát âm và sử dụng từ vựng trong câu.",
+          "wordIds": [
+            "v15-hsk2-06",
+            "v15-hsk2-07",
+            "v15-hsk2-08",
+            "v15-hsk2-09",
+            "v15-hsk2-10"
+          ],
+          "dialogs": []
+        }
+      ]
+    },
+    {
+      "id": "track-hsk3",
+      "categoryId": "hsk3",
+      "title": "HSK 3 · Vận dụng",
+      "description": "Lộ trình mẫu theo chủ đề, giáo viên có thể biên tập lại.",
+      "level": "Tham khảo",
+      "lessons": [
+        {
+          "id": "hsk3-bai-1",
+          "title": "Bài 1",
+          "objective": "Nhận diện, phát âm và sử dụng từ vựng trong câu.",
+          "wordIds": [
+            "v15-hsk3-01",
+            "v15-hsk3-02",
+            "v15-hsk3-03",
+            "v15-hsk3-04",
+            "v15-hsk3-05"
+          ],
+          "dialogs": []
+        },
+        {
+          "id": "hsk3-bai-2",
+          "title": "Bài 2",
+          "objective": "Nhận diện, phát âm và sử dụng từ vựng trong câu.",
+          "wordIds": [
+            "v15-hsk3-06",
+            "v15-hsk3-07",
+            "v15-hsk3-08",
+            "v15-hsk3-09",
+            "v15-hsk3-10"
+          ],
+          "dialogs": []
+        }
+      ]
+    },
+    {
+      "id": "track-hotel",
+      "categoryId": "hotel",
+      "title": "Khách sạn · Lễ tân",
+      "description": "Lộ trình mẫu theo chủ đề, giáo viên có thể biên tập lại.",
+      "level": "Tham khảo",
+      "lessons": [
+        {
+          "id": "hotel-bai-1",
+          "title": "Bài 1",
+          "objective": "Nhận diện, phát âm và sử dụng từ vựng trong câu.",
+          "wordIds": [
+            "v15-hotel-01",
+            "v15-hotel-02",
+            "v15-hotel-03",
+            "v15-hotel-04",
+            "v15-hotel-05"
+          ],
+          "dialogs": []
+        },
+        {
+          "id": "hotel-bai-2",
+          "title": "Bài 2",
+          "objective": "Nhận diện, phát âm và sử dụng từ vựng trong câu.",
+          "wordIds": [
+            "v15-hotel-06",
+            "v15-hotel-07",
+            "v15-hotel-08",
+            "v15-hotel-09",
+            "v15-hotel-10"
+          ],
+          "dialogs": []
+        }
+      ]
+    },
+    {
+      "id": "track-daily",
+      "categoryId": "daily",
+      "title": "Giao tiếp hằng ngày",
+      "description": "Lộ trình mẫu theo chủ đề, giáo viên có thể biên tập lại.",
+      "level": "Tham khảo",
+      "lessons": [
+        {
+          "id": "daily-bai-1",
+          "title": "Bài 1",
+          "objective": "Nhận diện, phát âm và sử dụng từ vựng trong câu.",
+          "wordIds": [
+            "v15-daily-01",
+            "v15-daily-02",
+            "v15-daily-03",
+            "v15-daily-04",
+            "v15-daily-05"
+          ],
+          "dialogs": []
+        },
+        {
+          "id": "daily-bai-2",
+          "title": "Bài 2",
+          "objective": "Nhận diện, phát âm và sử dụng từ vựng trong câu.",
+          "wordIds": [
+            "v15-daily-06",
+            "v15-daily-07",
+            "v15-daily-08",
+            "v15-daily-09",
+            "v15-daily-10"
+          ],
+          "dialogs": []
+        }
+      ]
+    },
+    {
+      "id": "track-restaurant",
+      "categoryId": "restaurant",
+      "title": "Nhà hàng · Phục vụ",
+      "description": "Lộ trình mẫu theo chủ đề, giáo viên có thể biên tập lại.",
+      "level": "Tham khảo",
+      "lessons": [
+        {
+          "id": "restaurant-bai-1",
+          "title": "Bài 1",
+          "objective": "Nhận diện, phát âm và sử dụng từ vựng trong câu.",
+          "wordIds": [
+            "v15-restaurant-01",
+            "v15-restaurant-02",
+            "v15-restaurant-03",
+            "v15-restaurant-04",
+            "v15-restaurant-05"
+          ],
+          "dialogs": []
+        },
+        {
+          "id": "restaurant-bai-2",
+          "title": "Bài 2",
+          "objective": "Nhận diện, phát âm và sử dụng từ vựng trong câu.",
+          "wordIds": [
+            "v15-restaurant-06",
+            "v15-restaurant-07",
+            "v15-restaurant-08",
+            "v15-restaurant-09",
+            "v15-restaurant-10"
+          ],
+          "dialogs": []
+        }
+      ]
+    },
+    {
+      "id": "track-taxi",
+      "categoryId": "taxi",
+      "title": "Taxi · Tài xế",
+      "description": "Lộ trình mẫu theo chủ đề, giáo viên có thể biên tập lại.",
+      "level": "Tham khảo",
+      "lessons": [
+        {
+          "id": "taxi-bai-1",
+          "title": "Bài 1",
+          "objective": "Nhận diện, phát âm và sử dụng từ vựng trong câu.",
+          "wordIds": [
+            "v15-taxi-01",
+            "v15-taxi-02",
+            "v15-taxi-03",
+            "v15-taxi-04",
+            "v15-taxi-05"
+          ],
+          "dialogs": []
+        },
+        {
+          "id": "taxi-bai-2",
+          "title": "Bài 2",
+          "objective": "Nhận diện, phát âm và sử dụng từ vựng trong câu.",
+          "wordIds": [
+            "v15-taxi-06",
+            "v15-taxi-07",
+            "v15-taxi-08",
+            "v15-taxi-09",
+            "v15-taxi-10"
+          ],
+          "dialogs": []
+        }
+      ]
+    }
+  ]
+}
