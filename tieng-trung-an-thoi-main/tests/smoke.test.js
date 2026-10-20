@@ -22,5 +22,14 @@ test('working routes + student account + admin authentication', async()=>{
  const deny=await fetch(base+'/api/admin');assert.equal(deny.status,401);
  const login=await fetch(base+'/api/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:'test-admin-strong-password'})});assert.equal(login.status,200);const cookie=login.headers.get('set-cookie').split(';')[0];
  assert.equal((await fetch(base+'/api/admin',{headers:{Cookie:cookie}})).status,200);
+ const deniedVocab=await fetch(base+'/api/admin/vocabulary');assert.equal(deniedVocab.status,401);
+ const vocabAdmin=await fetch(base+'/api/admin/vocabulary',{headers:{Cookie:cookie}});assert.equal(vocabAdmin.status,200);
+ const list=await vocabAdmin.json();assert.ok(list.vocabulary.length>=70);
+ const example={id:'test_hotel_welcome',category:'hotel',hanzi:'欢迎',pinyin:'huānyíng',meaning:'Chào mừng',example:'欢迎光临。',translation:'Hân hạnh đón tiếp.'};
+ const importFirst=await fetch(base+'/api/admin/vocabulary/import',{method:'POST',headers:{'Content-Type':'application/json',Cookie:cookie},body:JSON.stringify({rows:[example]})});assert.equal(importFirst.status,200);
+ const importDup=await fetch(base+'/api/admin/vocabulary/import',{method:'POST',headers:{'Content-Type':'application/json',Cookie:cookie},body:JSON.stringify({rows:[example]})});assert.equal(importDup.status,400);
+ const importUnknown=await fetch(base+'/api/admin/vocabulary/import',{method:'POST',headers:{'Content-Type':'application/json',Cookie:cookie},body:JSON.stringify({rows:[{...example,id:'newid',category:'nonexistent'}]})});assert.equal(importUnknown.status,400);
+ const updated=await fetch(base+'/api/learning/catalog');assert.equal(updated.status,200);assert.ok((await updated.json()).vocabulary.some(x=>x.id===example.id));
+
 });
 after(()=>{if(child)child.kill();fs.rmSync(data,{recursive:true,force:true});});

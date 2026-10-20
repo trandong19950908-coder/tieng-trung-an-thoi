@@ -54,7 +54,19 @@ function hashPassword(password,salt){return crypto.scryptSync(password,salt,64).
 function studentCookie(id){const raw=Buffer.from(JSON.stringify({id,exp:Date.now()+7*86400_000})).toString('base64url');return raw+'.'+sign('student:'+raw);}
 function currentStudent(req){const cookie=(req.headers.cookie||'').split(';').map(x=>x.trim()).find(x=>x.startsWith('an_thoi_student='));if(!cookie)return null;const token=cookie.slice(16),i=token.lastIndexOf('.');if(i<0)return null;const raw=token.slice(0,i),sig=token.slice(i+1),correct=sign('student:'+raw);if(sig.length!==correct.length||!crypto.timingSafeEqual(Buffer.from(sig),Buffer.from(correct)))return null;try{const p=JSON.parse(Buffer.from(raw,'base64url').toString());if(p.exp<Date.now())return null;return studentDB().students.find(x=>x.id===p.id)||null;}catch{return null;}}
 const vocabularyCatalog=JSON.parse(fs.readFileSync(path.join(dataDir,'vocabulary.json'),'utf8'));
-const vocabulary=vocabularyCatalog.vocabulary;
+const vocabularyPath=path.join(dataDir,'vocabulary.json');
+function readVocabulary(){const d=JSON.parse(fs.readFileSync(vocabularyPath,'utf8'));return {version:d.version||'custom',notice:d.notice||'',categories:Array.isArray(d.categories)?d.categories:[],vocabulary:Array.isArray(d.vocabulary)?d.vocabulary:[]};}
+function writeVocabulary(d){const tmp=vocabularyPath+'.tmp';fs.writeFileSync(tmp,JSON.stringify(d,null,2));fs.renameSync(tmp,vocabularyPath);}
+function vocabulary(){return readVocabulary().vocabulary;}
+function cleanVocabItem(v){return {id:text(v.id,64),category:text(v.category,64),hanzi:text(v.hanzi,80),pinyin:text(v.pinyin,160),meaning:text(v.meaning,300),example:text(v.example,400),translation:text(v.translation,500)};}
+function validateVocabulary(items,categories){
+ if(!Array.isArray(items)||items.length>10000)return 'Số lượng từ vựng không hợp lệ (tối đa 10.000).';
+ const ids=new Set(), allowed=new Set(categories.map(c=>c.id));
+ for(const v of items){if(!v.id||!/^[a-zA-Z0-9_-]{1,64}$/.test(v.id)||!v.hanzi||!v.meaning||!allowed.has(v.category))return 'Thiếu mã, từ, nghĩa hoặc chủ đề không tồn tại.';
+ if(ids.has(v.id))return 'Trùng mã từ vựng: '+v.id;ids.add(v.id);}
+ return '';
+}
+
 const methods=[{title:'Shadowing – nghe và nói nhại',tag:'Nghe · Nói',summary:'Nghe câu ngắn, lặp lại ngay sau người bản xứ và tự ghi âm để so sánh.',steps:['Chọn đoạn hội thoại 10–20 giây.','Nghe toàn bộ một lượt để hiểu ngữ cảnh.','Nói nhại theo từng câu, chú ý thanh điệu.','Tự ghi âm và so sánh với mẫu.']},{title:'Lặp lại ngắt quãng (SRS)',tag:'Từ vựng',summary:'Ôn từng từ vào thời điểm phù hợp thay vì đọc đi đọc lại cả danh sách.',steps:['Học tối đa 5–10 từ mới mỗi lượt.','Tự nhớ nghĩa trước khi lật thẻ.','Chọn mức độ nhớ trung thực.','Ôn lại các thẻ đến hạn vào ngày hôm sau.']},{title:'Đặt câu trong tình huống thực tế',tag:'Giao tiếp',summary:'Dùng từ vừa học để nói một câu có liên hệ với công việc và cuộc sống.',steps:['Chọn một từ đang học.','Viết một câu ngắn bằng tiếng Trung.','Đọc to cả câu, kiểm tra thanh điệu.','Thay chủ ngữ hoặc địa điểm để tạo câu mới.']}];
 const publicDir = path.join(root,'public');
 const uploadDir = path.join(dataDir,'uploads');fs.mkdirSync(uploadDir,{recursive:true});
@@ -67,7 +79,7 @@ const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=u
 const server=http.createServer(async (req,res)=>{
   const url=new URL(req.url,'http://localhost'); const pathname=url.pathname;
   try {
-    if(pathname==='/api/learning/catalog'&&req.method==='GET')return send(res,200,{vocabulary,methods,categories:vocabularyCatalog.categories,notice:vocabularyCatalog.notice});
+    if(pathname==='/api/learning/catalog'&&req.method==='GET')return send(res,200,{...readVocabulary(),methods});
     if(pathname==='/api/student/register'&&req.method==='POST'){
       const input=await body(req);const name=text(input.name,80),email=text(input.email,120).toLowerCase(),password=String(input.password||'');
       if(name.length<2||!/^\S+@\S+\.\S+$/.test(email)||password.length<10||password.length>128)return send(res,400,{error:'Nhập họ tên, email hợp lệ và mật khẩu từ 10 ký tự.'});
@@ -85,7 +97,7 @@ const server=http.createServer(async (req,res)=>{
     if(pathname==='/api/student/me'&&req.method==='GET'){const x=currentStudent(req);if(!x)return send(res,401,{error:'Bạn chưa đăng nhập.'});return send(res,200,{id:x.id,name:x.name,email:x.email,progress:x.progress||{}});}
     if(pathname==='/api/student/review'&&req.method==='POST'){
       const student=currentStudent(req);if(!student)return send(res,401,{error:'Vui lòng đăng nhập để lưu tiến độ.'});
-      const input=await body(req);if(!vocabulary.some(x=>x.id===input.id)||!['again','hard','good'].includes(input.rating))return send(res,400,{error:'Dữ liệu ôn tập không hợp lệ.'});
+      const input=await body(req);if(!vocabulary().some(x=>x.id===input.id)||!['again','hard','good'].includes(input.rating))return send(res,400,{error:'Dữ liệu ôn tập không hợp lệ.'});
       const db=studentDB(),x=db.students.find(x=>x.id===student.id);const prev=x.progress[input.id]||{repetitions:0,interval:0};
       const interval=input.rating==='again'?1:input.rating==='hard'?Math.max(1,Math.ceil((prev.interval||1)*1.5)):prev.repetitions===0?2:Math.max(3,Math.ceil((prev.interval||2)*2));
       x.progress[input.id]={repetitions:prev.repetitions+1,interval,lastRating:input.rating,lastReviewed:new Date().toISOString(),dueAt:new Date(Date.now()+interval*86400000).toISOString()};studentSave(db);
@@ -109,6 +121,23 @@ const server=http.createServer(async (req,res)=>{
     if(pathname==='/api/logout'&&req.method==='POST')return send(res,200,{ok:true},{'Set-Cookie':'an_thoi_admin=; HttpOnly; SameSite=Strict; Path=/; Max-Age=0'});
     if(pathname.startsWith('/api/admin')){
       if(!authenticated(req))return send(res,401,{error:'Vui lòng đăng nhập quản trị.'});
+      if(pathname==='/api/admin/vocabulary'&&req.method==='GET')return send(res,200,readVocabulary());
+      if(pathname==='/api/admin/vocabulary'&&req.method==='PUT'){
+        const input=await body(req);
+        const old=readVocabulary();
+        if(!Array.isArray(input.vocabulary))return send(res,400,{error:'Thiếu danh sách từ vựng.'});
+        const items=input.vocabulary.map(cleanVocabItem),err=validateVocabulary(items,old.categories);
+        if(err)return send(res,400,{error:err});
+        writeVocabulary({...old,vocabulary:items});
+        return send(res,200,{ok:true,count:items.length});
+      }
+      if(pathname==='/api/admin/vocabulary/import'&&req.method==='POST'){
+        const input=await body(req),old=readVocabulary();
+        if(!Array.isArray(input.rows)||input.rows.length>2000)return send(res,400,{error:'Mỗi lần nhập tối đa 2.000 dòng.'});
+        const rows=input.rows.map(cleanVocabItem),all=input.replace===true?rows:[...old.vocabulary,...rows];
+        const err=validateVocabulary(all,old.categories);if(err)return send(res,400,{error:err});
+        writeVocabulary({...old,vocabulary:all});return send(res,200,{ok:true,imported:rows.length,count:all.length});
+      }
       if(pathname==='/api/admin/upload' && req.method==='POST'){
         const kind=(req.headers['content-type']||'').split(';')[0].toLowerCase();if(!uploadMime[kind])return send(res,415,{error:'Chỉ hỗ trợ ảnh JPG, PNG hoặc WebP.'});
         const buffer=await uploadBody(req);if(!buffer.length||buffer.length>5*1024*1024||detectImage(buffer)!==uploadMime[kind])return send(res,400,{error:'Ảnh không hợp lệ, sai định dạng hoặc vượt 5MB.'});
