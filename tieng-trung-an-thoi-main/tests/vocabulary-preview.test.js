@@ -1,0 +1,11 @@
+const test=require('node:test');
+const assert=require('node:assert/strict');
+const fs=require('node:fs');const path=require('node:path');
+const {preview,parseCSV}=require('../public/vocab-import-preview');
+const catalog={categories:[{id:'hotel'}],vocabulary:[{id:'existing'}]};
+const header='id,category,hanzi,pinyin,meaning,example,translation\n';
+test('CSV allows quoted commas, newlines and UTF-8',()=>{const rows=parseCSV(header+'new,hotel,你好,nǐ hǎo,"Xin chào, bạn",,\n');assert.equal(rows[1][4],'Xin chào, bạn');});
+test('preview accepts new terms',()=>{const out=preview(header+'new,hotel,你好,nǐ hǎo,Xin chào,,\n',catalog);assert.equal(out.valid.length,1);assert.equal(out.errors.length,0);});
+test('preview rejects duplicates and wrong category',()=>{const out=preview(header+'existing,hotel,你好,nǐ,Xin chào,,\nnew,bad,你,nǐ,Bạn,,\nother,hotel,好,hǎo,Tốt,,\n',catalog);assert.equal(out.valid.length,1);assert.equal(out.errors.length,2);});
+test('preview rejects oversized and malformed rows',()=>{assert.throws(()=>preview('wrong,header\n',catalog));const out=preview(header+'a,hotel,你,nǐ,Hi\n',catalog);assert.equal(out.errors.length,1);});
+test('admin links preview script before admin app',()=>{const html=fs.readFileSync(path.join(__dirname,'../public/admin.html'),'utf8');assert.ok(html.indexOf('/vocab-import-preview.js')<html.indexOf('/admin.js'));});
