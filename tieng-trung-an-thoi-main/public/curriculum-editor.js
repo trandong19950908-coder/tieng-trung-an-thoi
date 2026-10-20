@@ -33,16 +33,16 @@ window.renderCurriculumEditor = async function renderCurriculumEditor(panel, api
       <div class="curr-header"><div><h2>Biên tập giáo trình</h2><p>Quản lý lộ trình, bài học, hội thoại và từ vựng. Dữ liệu được lưu trên máy chủ.</p></div><button type="button" id="curr-save" class="primary">Lưu thay đổi</button></div>
       <p class="curr-message" role="status">${html(message)}</p>
       <div class="curr-layout"><div class="curr-sidebar"><h3>Lộ trình (${model.tracks.length})</h3>
-      ${model.tracks.map((x,i)=>`<button type="button" class="curr-item ${i===activeTrack?'active':''}" data-track="${i}">${html(x.title||x.id)}</button>`).join('')}
+      ${model.tracks.map((x,i)=>`<button type="button" class="curr-item ${i===activeTrack?'active':''}" data-track="${i}">${html(x.title||x.id)} ${x.status==='draft'?'· Nháp':''}</button>`).join('')}
       <button type="button" class="curr-add" id="curr-add-track">+ Thêm lộ trình</button></div>
       <div class="curr-main">${t ? `<div class="curr-heading"><h3>Thông tin lộ trình</h3><button type="button" id="curr-delete-track" class="curr-danger">Xóa lộ trình</button></div>
       <div class="curr-fields">${[['id','Mã lộ trình'],['title','Tên lộ trình'],['level','Trình độ']].map(([k,v])=>`<label class="curr-field">${v}<input data-track-field="${k}" value="${html(t[k])}" ${k==='id'?'readonly':''}></label>`).join('')}
       <label class="curr-field">Chủ đề<select data-track-field="categoryId">${categories.map(c=>`<option value="${html(c.id)}" ${c.id===t.categoryId?'selected':''}>${html(c.title||c.name||c.id)}</option>`).join('')}</select></label>
       <label class="curr-field curr-wide">Mô tả<textarea data-track-field="description" rows="2">${html(t.description)}</textarea></label></div>
-      <h3>Bài học (${t.lessons.length})</h3><div class="curr-lessons">${t.lessons.map((x,i)=>`<button type="button" data-lesson="${i}" class="curr-item ${i===activeLesson?'active':''}">${html(x.title||x.id)}</button>`).join('')}<button type="button" id="curr-add-lesson" class="curr-add">+ Thêm bài</button></div>
+      <h3>Bài học (${t.lessons.length})</h3><div class="curr-lessons">${t.lessons.map((x,i)=>`<button type="button" data-lesson="${i}" class="curr-item ${i===activeLesson?'active':''}">${html(x.title||x.id)} ${x.status==='draft'?'· Nháp':''}</button>`).join('')}<button type="button" id="curr-add-lesson" class="curr-add">+ Thêm bài</button></div>
       ${l ? `<div class="curr-heading"><h3>Chi tiết bài học</h3><button type="button" id="curr-delete-lesson" class="curr-danger">Xóa bài</button></div>
       <div class="curr-fields">${[['id','Mã bài'],['title','Tên bài']].map(([k,v])=>`<label class="curr-field">${v}<input data-lesson-field="${k}" value="${html(l[k])}" ${k==='id'?'readonly':''}></label>`).join('')}
-      <label class="curr-field curr-wide">Mục tiêu bài học<textarea data-lesson-field="objective" rows="2">${html(l.objective)}</textarea></label></div>
+      <label class="curr-field">Trạng thái xuất bản<select data-lesson-field="status"><option value="draft" ${l.status==='draft'?'selected':''}>Nháp – chỉ Admin nhìn thấy</option><option value="published" ${l.status!=='draft'?'selected':''}>Đã xuất bản – học viên nhìn thấy</option></select></label><label class="curr-field curr-wide">Mục tiêu bài học<textarea data-lesson-field="objective" rows="2">${html(l.objective)}</textarea></label></div><p class="curr-message">${l.status==='draft'?'Bài này đang ở chế độ nháp.':'Bài này đang hiển thị với học viên.'} Đổi trạng thái rồi bấm “Lưu thay đổi” để áp dụng.</p>
       <h4>Chọn từ vựng (${l.wordIds.length})</h4><p>Danh sách được lọc theo chủ đề của lộ trình; tối đa 60 từ mỗi bài.</p>
       <div class="curr-words">${words.filter(w=>w.category===t.categoryId).map(w=>`<label><input type="checkbox" data-word-id="${html(w.id)}" ${l.wordIds.includes(w.id)?'checked':''}> <strong>${html(w.hanzi)}</strong> <span>${html(w.pinyin)} – ${html(w.meaning)}</span></label>`).join('')||'Chưa có từ vựng cho chủ đề này.'}</div>
       <div class="curr-heading"><h4>Hội thoại (${l.dialogs.length})</h4><button type="button" id="curr-add-dialog" class="curr-add">+ Thêm câu</button></div>
@@ -61,7 +61,7 @@ window.renderCurriculumEditor = async function renderCurriculumEditor(panel, api
     if(!t)return;
     panel.querySelector('#curr-delete-track').onclick=()=>{if(!confirm('Xóa lộ trình và các bài trong lộ trình này?'))return;model.tracks.splice(activeTrack,1);activeTrack=0;activeLesson=0;draw('Chưa lưu. Nhấn Lưu thay đổi để xác nhận.');};
     panel.querySelector('[data-track-field="categoryId"]').onchange=()=>{snapshot();t.lessons.forEach(x=>{x.wordIds=x.wordIds.filter(id=>words.some(w=>w.id===id&&w.category===t.categoryId));});draw('Đã lọc từ theo chủ đề mới; hãy kiểm tra lại bài học và lưu.');};
-    panel.querySelector('#curr-add-lesson').onclick=()=>{snapshot();const ids=new Set(model.tracks.flatMap(x=>x.lessons.map(y=>y.id)));const id=uniqueId(t.id+'-bai',ids);t.lessons.push({id,title:'Bài học mới',objective:'',wordIds:[],dialogs:[]});activeLesson=t.lessons.length-1;draw();};
+    panel.querySelector('#curr-add-lesson').onclick=()=>{snapshot();const ids=new Set(model.tracks.flatMap(x=>x.lessons.map(y=>y.id)));const id=uniqueId(t.id+'-bai',ids);t.lessons.push({id,status:'draft',title:'Bài học mới',objective:'',wordIds:[],dialogs:[]});activeLesson=t.lessons.length-1;draw();};
     if(!l)return;
     panel.querySelector('#curr-delete-lesson').onclick=()=>{if(!confirm('Xóa bài học này?'))return;t.lessons.splice(activeLesson,1);activeLesson=0;draw('Chưa lưu.');};
     panel.querySelector('#curr-add-dialog').onclick=()=>{snapshot();l.dialogs.push({hanzi:'',pinyin:'',translation:''});draw();};
